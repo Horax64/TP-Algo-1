@@ -1,3 +1,4 @@
+--module iap1-tp where
 import Test.HUnit
 import Solucion
 

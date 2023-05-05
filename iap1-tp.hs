@@ -1,10 +1,13 @@
 -- Completar con los datos del grupo
 --
 -- Nombre de Grupo: Overflow 'em all
--- Integrante 1: Lucia Silva, email, LU
--- Integrante 2: Horacio Garcia Crespo, email, LU
--- Integrante 3: Antonella Manzoni Bascoy, email, LU
--- Integrante 4: Nombre Apellido, email, LU
+-- Integrante 1: Lucia Silva, lucia.silva.alberto@gmail.com , 209/22
+-- Integrante 2: Horacio Garcia Crespo, horaciogarciacr@gmail.com, 203/20
+-- Integrante 3: Antonella Manzoni Bascoy, antonellapilar23@yahoo.com, 1603/21
+-- Integrante 4: Ludmila Krasnozhon, ludkra2@gmail.com, 252/22
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+import System.Posix (UserID)
+import Data.Time.Format.ISO8601 (yearFormat)
 
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
@@ -37,15 +40,54 @@ likesDePublicacion (_, _, us) = us
 -- Ejercicios
 
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = undefined
+nombresDeUsuarios red = eliminarRepetidos ( proyectarNombres (usuarios red))
+
+
+proyectarNombres:: [Usuario] -> [String]
+proyectarNombres [] = []
+proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
+
+
+sinRepetidos :: (Eq t) => [t] -> Bool
+sinRepetidos [] = True
+sinRepetidos (x:xs) | pertenece x xs = False
+                    | otherwise = sinRepetidos xs
+
+
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos (x:xs) | pertenece x xs = [x] ++ quitarTodos x (eliminarRepetidos xs)
+                         | otherwise = [x] ++ eliminarRepetidos xs
+
+quitarTodos :: (Eq t) => t -> [t] -> [t]
+quitarTodos x xs | xs == [] = []
+            | x == head xs = [] ++ quitarTodos x (tail xs)
+            | otherwise = [head xs] ++ quitarTodos x (tail xs)
+
+pertenece :: (Eq t) => t -> [t] -> Bool
+pertenece e l | longitud l == 0 = False
+              | e == head l = True
+              | otherwise = pertenece e (tail l)
+   
+longitud :: [t] -> Int
+longitud [] = 0
+longitud (x:xs) = 1 + longitud xs
+
 
 -- describir qué hace la función: .....
+
 amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe = undefined
+amigosDe red n = amigos n (relaciones red)
+
+amigos :: Usuario -> [Relacion] -> [Usuario]
+amigos _ [] = []
+amigos n (x:xs) | n == fst x = [snd x] ++ amigos n xs 
+                 | n == snd x = [fst x] ++ amigos n xs 
+                 | otherwise = amigos n xs
 
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+cantidadDeAmigos red n = longitud (amigosDe red n)
 
 -- describir qué hace la función: .....
 usuarioConMasAmigos :: RedSocial -> Usuario
@@ -74,3 +116,5 @@ tieneUnSeguidorFiel = undefined
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
+
+-- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")])])
