@@ -103,7 +103,7 @@ maxN x y | x >= y = x
          | otherwise = y 
 
 maximo :: (Ord t) => [t] -> t 
-maximo [] = 0
+maximo [x] = x
 maximo (x:xs) = maxN x (maximo xs)
 
 
