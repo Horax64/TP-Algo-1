@@ -9,6 +9,7 @@ module Soluciones where
 import System.Posix (UserID)
 import Data.Time.Format.ISO8601 (yearFormat)
 import GHC.CmmToAsm.AArch64.Instr (x0)
+import GHC.Parser.Lexer (P)
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
@@ -112,15 +113,25 @@ estaRobertoCarlos red = if (cantidadDeAmigos red (usuarioConMasAmigos red)) > 10
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe = undefined
+publicacionesDe red u = postsDe (publicaciones red) u
+
+postsDe :: [Publicacion] -> Usuario -> [Publicacion]
+postsDe [] u = []
+postsDe (x:xs) u | usuarioDePublicacion x == u = x : postsDe xs u
+                 | otherwise = postsDe xs u
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA red u = likesDeU (publicaciones red) u
+
+likesDeU :: [Publicacion] -> Usuario -> [Publicacion]
+likesDeU [] _ = []
+likesDeU (x:xs) u | elem u (likesDePublicacion x) = x : likesDeU xs u 
+                  | otherwise = likesDeU xs u 
 
 -- describir qué hace la función: .....
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones = undefined
+lesGustanLasMismasPublicaciones red a b = if publicacionesQueLeGustanA red a == publicacionesQueLeGustanA red b then True else False
 
 -- describir qué hace la función: .....
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
