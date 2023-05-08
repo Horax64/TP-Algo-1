@@ -8,6 +8,7 @@ module Soluciones where
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-} -- borrar esto antes de entregar
 import System.Posix (UserID)
 import Data.Time.Format.ISO8601 (yearFormat)
+import GHC.CmmToAsm.AArch64.Instr (x0)
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
@@ -94,8 +95,17 @@ cantidadDeAmigos red n = longitud (amigosDe red n)
 
 
 -- describir qué hace la función: .....
+
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos = undefined
+usuarioConMasAmigos red = elQueTieneMasAmigos red (usuarios red) (head (usuarios red))
+
+
+elQueTieneMasAmigos :: RedSocial -> [Usuario] -> Usuario -> Usuario
+elQueTieneMasAmigos red (x:xs) n | null xs && cantidadDeAmigos red x > cantidadDeAmigos red n = x
+                                 | null xs = n 
+                                 | cantidadDeAmigos red x >= cantidadDeAmigos red n = elQueTieneMasAmigos red xs x
+                                 | otherwise = elQueTieneMasAmigos red xs n
+                 
 
 --Funciones auxiliares
 maxN:: (Ord t) => t -> t -> t 
@@ -131,4 +141,4 @@ tieneUnSeguidorFiel = undefined
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
 
--- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")])])
+
