@@ -97,6 +97,16 @@ cantidadDeAmigos red n = longitud (amigosDe red n)
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos = undefined
 
+--Funciones auxiliares
+maxN:: (Ord t) => t -> t -> t 
+maxN x y | x >= y = x 
+         | otherwise = y 
+
+maximo :: (Ord t) => [t] -> t 
+maximo [] = 0
+maximo (x:xs) = maxN x (maximo xs)
+
+
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos = undefined
