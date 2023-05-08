@@ -37,12 +37,14 @@ usuarioDePublicacion (u, _, _) = u
 likesDePublicacion :: Publicacion -> [Usuario]
 likesDePublicacion (_, _, us) = us
 
--- Ejercicios
+-- Ejercicios:
+
+--Ejercicio 1 
 
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios red = eliminarRepetidos ( proyectarNombres (usuarios red))
 
-
+--Funciones auxiliares 
 proyectarNombres:: [Usuario] -> [String]
 proyectarNombres [] = []
 proyectarNombres (x:xs) = nombreDeUsuario x : proyectarNombres xs
@@ -74,18 +76,20 @@ longitud [] = 0
 longitud (x:xs) = 1 + longitud xs
 
 
--- describir qué hace la función: .....
+--Ejercicio 2 
 
 amigosDe :: RedSocial -> Usuario -> [Usuario]
 amigosDe red n = amigos n (relaciones red)
 
+--FUncion auxiliar
 amigos :: Usuario -> [Relacion] -> [Usuario]
 amigos _ [] = []
 amigos n (x:xs) | n == fst x = [snd x] ++ amigos n xs 
                  | n == snd x = [fst x] ++ amigos n xs 
                  | otherwise = amigos n xs
 
--- describir qué hace la función: .....
+--Ejercicio 3 
+
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos red n = longitud (amigosDe red n)
 
