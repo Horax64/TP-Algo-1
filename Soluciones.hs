@@ -106,20 +106,9 @@ elQueTieneMasAmigos red (x:xs) n | null xs && cantidadDeAmigos red x > cantidadD
                                  | cantidadDeAmigos red x >= cantidadDeAmigos red n = elQueTieneMasAmigos red xs x
                                  | otherwise = elQueTieneMasAmigos red xs n
                  
-
---Funciones auxiliares
-maxN:: (Ord t) => t -> t -> t 
-maxN x y | x >= y = x 
-         | otherwise = y 
-
-maximo :: (Ord t) => [t] -> t 
-maximo [x] = x
-maximo (x:xs) = maxN x (maximo xs)
-
-
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos = undefined
+estaRobertoCarlos red = if (cantidadDeAmigos red (usuarioConMasAmigos red)) > 1000000 then True else False
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
@@ -142,3 +131,5 @@ existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
 
 
+-- caso test
+-- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")])])
