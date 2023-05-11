@@ -109,7 +109,7 @@ elQueTieneMasAmigos red (x:xs) n | null xs && cantidadDeAmigos red x > cantidadD
                  
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos red = if (cantidadDeAmigos red (usuarioConMasAmigos red)) > 1000000 then True else False
+estaRobertoCarlos red = if (cantidadDeAmigos red (usuarioConMasAmigos red)) > 10 then True else False
 
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
