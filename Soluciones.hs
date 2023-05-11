@@ -135,12 +135,21 @@ lesGustanLasMismasPublicaciones red a b = if publicacionesQueLeGustanA red a == 
 
 -- describir qué hace la función: .....
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel = undefined
+tieneUnSeguidorFiel red u = esSeguidorFielDeU red u (usuarios red)
+
+esSeguidorFielDeU ::RedSocial -> Usuario -> [Usuario] -> Bool
+esSeguidorFielDeU red u [] = False  
+esSeguidorFielDeU red u (x:xs) | pertenecePubDeUALosLikesDeU2 (publicacionesDe red u) (publicacionesQueLeGustanA red x) && u /= x = True
+                               | otherwise = esSeguidorFielDeU red u xs
+                               
+pertenecePubDeUALosLikesDeU2 :: [Publicacion] -> [Publicacion] -> Bool
+pertenecePubDeUALosLikesDeU2 [] l = False
+pertenecePubDeUALosLikesDeU2 (x:xs) l | pertenece x l = True
+                                      | otherwise = pertenecePubDeUALosLikesDeU2 xs l
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
 
-
 -- caso test
--- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")])])
+-- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")]),((1,"horax64"),"bokita el mas grande",[(2,"antobascoy"),(2,"luloide")])])
