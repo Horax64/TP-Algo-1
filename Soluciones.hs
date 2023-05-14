@@ -5,11 +5,6 @@ module Soluciones where
 -- Integrante 2: Horacio Garcia Crespo, horaciogarciacr@gmail.com, 203/20
 -- Integrante 3: Antonella Manzoni Bascoy, antonellapilar23@yahoo.com, 1603/21
 -- Integrante 4: Ludmila Krasnozhon, ludkra2@gmail.com, 252/22
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-} -- borrar esto antes de entregar
-import System.Posix (UserID)
-import Data.Time.Format.ISO8601 (yearFormat)
-import GHC.CmmToAsm.AArch64.Instr (x0)
-import GHC.Parser.Lexer (P)
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
