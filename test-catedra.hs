@@ -72,3 +72,47 @@ module Test where
     relacionesB = [relacion1_2, relacion2_3]
     publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1, publicacion3_2, publicacion3_3]
     redB = (usuariosB, relacionesB, publicacionesB)
+
+-- testsuits, test cases , usuarios, relaciones y publicaciones creadas por el grupo
+    pruebasNuestras = runTestTT testsuit2 -- hay que poner todo en main ojo!!
+    testsuit1 = test [
+        " Ej1: dos usuarios tienen el mismo nombre" ~: (nombresDeUsuarios red1) ~?= ["horax64","luloide","antobascoy","mila"]
+        ]  
+    testsuit2 = test [
+        " Ej2: usuario u no tiene amigos" ~: (amigosDe red2 usuario8) ~?= [],
+        " Ej2: usuario u tiene mas de un amigo " ~: (amigosDe red2 usuario6) ~?= [(7,"luloide"),(9,"mila")],
+        " Ej2: usuario u tiene un solo amigo"  ~: (amigosDe red2_1 usuario8) ~?= [(11,"robertcharles")]
+        ]
+--usuarios
+-- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")]),((1,"horax64"),"bokita el mas grande",[(2,"antobascoy"),(2,"luloide")])])
+    usuario6 = (6, "horax64")
+    usuario7 = (7, "luloide")
+    usuario8 = (8, "antobascoy")
+    usuario9 = (9, "mila")
+    usuario10 = (10, "horax64") -- horax se registro 2 veces
+    usuario11 = (11,"robertcharles")
+
+    --relaciones
+    relacion6_7 = (usuario6, usuario7)
+    relacion8_9 = (usuario8, usuario9)
+    relacion7_8 = (usuario7, usuario8)
+    relacion6_9 = (usuario6, usuario9)
+    relacion7_9 = (usuario7, usuario9)
+    relacion8_11 = (usuario8, usuario11)
+
+    --publicaciones
+    publicacion6_1 = (usuario6, "somos todos montiel", [usuario6, usuario7])
+    publicacion6_2 = (usuario6, "bokita el mas grande", [usuario7, usuario8])
+
+    --redes
+    --redes ejercicio 1 
+    usuarios1 = [usuario6, usuario7, usuario8, usuario9, usuario10]
+    relaciones1 = [relacion6_7, relacion8_9, relacion7_8]
+    publicaciones1 = [publicacion6_1, publicacion6_2]
+    red1 = (usuarios1,relaciones1,publicaciones1)
+    -- redes ejercicio 2
+    usuarios2 = [usuario6, usuario7, usuario8, usuario9,usuario11]
+    relaciones2 = [relacion6_7,relacion6_9,relacion7_9]
+    relaciones2_1 = [relacion6_7,relacion6_9,relacion7_9, relacion8_11]
+    red2 = (usuarios2,relaciones2, publicaciones1)
+    red2_1 = (usuarios2,relaciones2_1, publicaciones1)

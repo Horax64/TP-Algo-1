@@ -145,6 +145,3 @@ pertenecePubDeUALosLikesDeU2 (x:xs) l | pertenece x l = True
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
-
--- caso test
--- ([(1,"horax64"),(2,"luloide"),(3,"antobascoy"),(4,"mila")],[((4,"mila"),(3,"antobascoy")),((2,"luloide"),(3,"antobascoy")),((1,"horax64"),(2,"luloide"))],[((1,"horax64"),"somos todos montiel",[(1,"horax64"),(2,"luloide")]),((1,"horax64"),"bokita el mas grande",[(2,"antobascoy"),(2,"luloide")])])
