@@ -1,4 +1,5 @@
 module Soluciones where
+import GHC.RTS.Flags (GCFlags(pcFreeHeap))
 -- Completar con los datos del grupo
 -- Nombre de Grupo: Overflow 'em all
 -- Integrante 1: Lucia Silva, lucia.silva.alberto@gmail.com , 209/22
@@ -144,4 +145,16 @@ pertenecePubDeUALosLikesDeU2 (x:xs) l | pertenece x l = True
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos = undefined
+existeSecuenciaDeAmigos red u1 u2 = pertenece u2 (comunidad red [u1] [u1])
+
+
+comunidad :: RedSocial -> [Usuario] -> [Usuario] -> [Usuario]
+comunidad red pc [] = pc 
+comunidad red pc (x:xs) = comunidad red ((elementosNoEnComun (amigosDe red x) pc) ++ pc) (xs ++ (elementosNoEnComun (amigosDe red x) pc))
+
+
+elementosNoEnComun :: [Usuario] -> [Usuario] -> [Usuario]
+elementosNoEnComun [] xs = []
+elementosNoEnComun (x:xs) ls | pertenece x ls = elementosNoEnComun xs ls 
+                             | otherwise = x : elementosNoEnComun xs ls
+                 

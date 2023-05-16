@@ -91,21 +91,24 @@ module Test where
     usuario9 = (9, "mila")
     usuario10 = (10, "horax64") -- horax se registro 2 veces
     usuario11 = (11,"robertcharles")
+    usuario12 = (12,"fede")
 
     --relaciones
     relacion6_7 = (usuario6, usuario7)
     relacion8_9 = (usuario8, usuario9)
+    relacion6_8 = (usuario6, usuario8)
     relacion7_8 = (usuario7, usuario8)
-    relacion6_9 = (usuario6, usuario9)
     relacion7_9 = (usuario7, usuario9)
+    relacion6_9 = (usuario6, usuario9)
     relacion8_11 = (usuario8, usuario11)
+    relacion9_12 = (usuario9, usuario12)
 
     --publicaciones
     publicacion6_1 = (usuario6, "somos todos montiel", [usuario6, usuario7])
     publicacion6_2 = (usuario6, "bokita el mas grande", [usuario7, usuario8])
 
     --redes
-    --redes ejercicio 1 
+    --redes ejercicio 1
     usuarios1 = [usuario6, usuario7, usuario8, usuario9, usuario10]
     relaciones1 = [relacion6_7, relacion8_9, relacion7_8]
     publicaciones1 = [publicacion6_1, publicacion6_2]
@@ -116,3 +119,13 @@ module Test where
     relaciones2_1 = [relacion6_7,relacion6_9,relacion7_9, relacion8_11]
     red2 = (usuarios2,relaciones2, publicaciones1)
     red2_1 = (usuarios2,relaciones2_1, publicaciones1)
+
+    --Pruebas ej 10
+    relaciones10 = [relacion6_7,relacion6_8,relacion7_8,relacion7_9,relacion9_12]
+    usuarios10 = [usuario6, usuario7,usuario8, usuario9, usuario12]
+    red10 = (usuarios10, relaciones10, publicaciones1)
+
+    relaciones10_2 = [relacion6_7, relacion6_8 , relacion7_8, relacion9_12]
+    red10_2 = (usuarios10, relaciones10_2, publicaciones1)
+    relaciones10_3 = []
+    red10_3 = (usuarios10, relaciones10_3, publicaciones1)
