@@ -74,9 +74,11 @@ module Test where
     redB = (usuariosB, relacionesB, publicacionesB)
 
 -- testsuits, test cases , usuarios, relaciones y publicaciones creadas por el grupo
-    pruebasNuestras = runTestTT testsuit2 -- hay que poner todo en main ojo!!
+    pruebasNuestras = runTestTT testsuit1 -- hay que poner todo en main ojo!!
     testsuit1 = test [
-        " Ej1: dos usuarios tienen el mismo nombre" ~: (nombresDeUsuarios red1) ~?= ["horax64","luloide","antobascoy","mila"]
+        " Ej1: dos usuarios tienen el mismo nombre" ~: (nombresDeUsuarios red1) ~?= ["horax64","luloide","antobascoy","mila"],
+        " Ej1: todos los usuarios tienen distinto nombre" ~: (nombresDeUsuarios red1_2) ~?= ["horax64","luloide","antobascoy","mila"],
+        " Ej1: caso en el cual la red no tiene usuarios" ~: (nombresDeUsuarios red_vacia) ~?= []
         ]  
     testsuit2 = test [
         " Ej2: usuario u no tiene amigos" ~: (amigosDe red2 usuario8) ~?= [],
@@ -112,7 +114,10 @@ module Test where
     usuarios1 = [usuario6, usuario7, usuario8, usuario9, usuario10]
     relaciones1 = [relacion6_7, relacion8_9, relacion7_8]
     publicaciones1 = [publicacion6_1, publicacion6_2]
+    red_vacia = ([],[],[])
     red1 = (usuarios1,relaciones1,publicaciones1)
+    usuarios1_2 = [usuario6, usuario7, usuario8, usuario9]
+    red1_2 = (usuarios1_2, relaciones1, publicaciones1)
     -- redes ejercicio 2
     usuarios2 = [usuario6, usuario7, usuario8, usuario9,usuario11]
     relaciones2 = [relacion6_7,relacion6_9,relacion7_9]
