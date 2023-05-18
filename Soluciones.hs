@@ -129,19 +129,19 @@ likesDeU (x:xs) u | elem u (likesDePublicacion x) = x : likesDeU xs u
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones red a b = if publicacionesQueLeGustanA red a == publicacionesQueLeGustanA red b then True else False
 
--- describir qué hace la función: .....
+-- describir qué hace la función: se fija primero si u tiene publicaciones, si las tiene despues se fija si tiene un seguidor fiel
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel red u = esSeguidorFielDeU red u (usuarios red)
+tieneUnSeguidorFiel red u = if  publicacionesDe red u == [] then False else esSeguidorFielDeU red u (usuarios red) 
 
 esSeguidorFielDeU ::RedSocial -> Usuario -> [Usuario] -> Bool
 esSeguidorFielDeU red u [] = False  
-esSeguidorFielDeU red u (x:xs) | pertenecePubDeUALosLikesDeU2 (publicacionesDe red u) (publicacionesQueLeGustanA red x) && u /= x = True
+esSeguidorFielDeU red u (x:xs) | perteneceTodaslasPubDeUALosLikesDeU2 (publicacionesDe red u) (publicacionesQueLeGustanA red x) && u /= x = True
                                | otherwise = esSeguidorFielDeU red u xs
                                
-pertenecePubDeUALosLikesDeU2 :: [Publicacion] -> [Publicacion] -> Bool
-pertenecePubDeUALosLikesDeU2 [] l = False
-pertenecePubDeUALosLikesDeU2 (x:xs) l | pertenece x l = True
-                                      | otherwise = pertenecePubDeUALosLikesDeU2 xs l
+perteneceTodaslasPubDeUALosLikesDeU2 :: [Publicacion] -> [Publicacion] -> Bool
+perteneceTodaslasPubDeUALosLikesDeU2 [] l = True
+perteneceTodaslasPubDeUALosLikesDeU2 (x:xs) l | not (pertenece x l) = False
+                                              | otherwise = perteneceTodaslasPubDeUALosLikesDeU2 xs l
 
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
