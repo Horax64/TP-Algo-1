@@ -1,5 +1,5 @@
 module Test where
-    import Soluciones
+    import Solucion
 
     import Test.HUnit
     --import Solucion descomentar al terminar
